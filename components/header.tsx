@@ -13,7 +13,6 @@ const Header = () => {
           {Links.map((link) => {
             const isActive = pathname === link.href;
 
-            console.log(pathname, link.href);
             return (
               <>
                 <div

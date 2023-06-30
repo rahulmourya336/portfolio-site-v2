@@ -8,7 +8,7 @@ import {
 const Intro = () => {
   return (
     <>
-      <div className="grid h-screen-fix w-screen-fix" id="about">
+      <div className="grid h-screen-fix w-screen-fix wrapper" id="about">
         <div className="text-2xl px-4 text-center flex items-center justify-center flex-col gap-6">
           {"Hi👋🏼 I'm Rahul Mourya, a web developer."}
           <div className="text-sm px-4 text-left leading-6">
