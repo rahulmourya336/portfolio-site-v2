@@ -5,7 +5,7 @@ export {
   FaInstagramSquare as IconInstagram,
   FaInstagram as IconInstagarmOutline,
   FaGithub as IconGithubTransparent,
-} from "react-icons/Fa";
+} from "react-icons/fa";
 
 export { PiStackOverflowLogoFill as IconStackoverflow } from "react-icons/pi";
 
