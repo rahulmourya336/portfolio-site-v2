@@ -151,7 +151,7 @@ export const ProjectList = [
     githubLink: "https://github.com/rahulmourya336/VanillaToDo",
     demoLink: "https://vanillav2beta.netlify.com/",
     thumbnail: "/todo_thumbnail.png",
-    tags: ["vanillaJS, spectre.css"],
+    tags: ["vanillaJS, SpectreCSS"],
   },
   {
     name: "100 Days of CSS",

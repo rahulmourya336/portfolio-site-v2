@@ -7,8 +7,9 @@ const Project = () => {
     <>
       <div className="wrapper px-5">
         <div className="col-span-3 py-3 leading-7">
-          This list isn't being kept updated. A better list can be found by
-          looking at my GitHub profile.
+          {
+            " This list isn't being kept updated. A better list can be found by looking at my GitHub profile."
+          }
           <div>
             <a
               href="https://github.com/rahulmourya336"
