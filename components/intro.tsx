@@ -1,6 +1,4 @@
-import Image from "next/image";
 import {
-  IconGithub,
   IconGithubTransparent,
   IconInstagarmOutline,
 } from "./icons";

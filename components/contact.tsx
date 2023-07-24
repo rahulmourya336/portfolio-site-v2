@@ -5,7 +5,7 @@ import { IconContact } from "./icons";
 const ContactDetails = () => {
   return (
     <>
-      <div className="grid h-screen-fix w-screen-fix wrapper" id="about">
+      <div className="grid h-screen-fix w-screen-fix wrapper transition-all" id="about">
         <div className="text-2xl px-4 text-center flex items-center justify-start flex-col gap-6 py-20">
         <IconContact  className="text-6xl text-white"/>
           <div className="text-lg px-4 text-left leading-7">
@@ -15,8 +15,8 @@ const ContactDetails = () => {
           </div>
 
           <div className="text-lg px-4 text-left leading-7 underline">
-            <a href="mailto:rahulmourya336@gmail.com">
-              rahulmourya336[at]gmail[dot]com
+            <a href="mailto:ierahul20@gmail.com">
+              ierahul20[at]gmail[dot]com
             </a>
           </div>
 

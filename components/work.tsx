@@ -11,10 +11,10 @@ const WorkDetails = () => {
   const [selectedTab, setSelectedTab] = useState(TAB.WORK);
 
   const tabStyleClasses =
-    "bg-white text-black px-5 py-1 border-b-4 border-purple-500";
+    "bg-white text-black px-5 py-1 border-b-4 border-purple-500 hover:text-gray-400";
 
   const WorkDetails = (
-    <div className="flex justify-center  flex-wrap flex-grow wrapper">
+    <div className="flex justify-center flex-wrap flex-grow wrapper transition-all">
       <div className=" border-white py-5 w-auto px-5 ">
         {workHistory.map((work, idx) => (
           <>
@@ -62,13 +62,19 @@ const WorkDetails = () => {
       <div className="grid grid-cols-2 place-items-center wrapper border-t  border-b py-4 cursor-pointer">
         <div
           onClick={() => setSelectedTab(TAB.WORK)}
-          className={`${selectedTab === TAB.WORK ? tabStyleClasses : ""}`}
+          className={`${
+            selectedTab === TAB.WORK ? tabStyleClasses : "hover:text-gray-400"
+          }`}
         >
           Work
         </div>
         <div
           onClick={() => setSelectedTab(TAB.PROJECT)}
-          className={` ${selectedTab === TAB.PROJECT ? tabStyleClasses : ""}`}
+          className={` ${
+            selectedTab === TAB.PROJECT
+              ? tabStyleClasses
+              : "hover:text-gray-400"
+          }`}
         >
           Projects
         </div>

@@ -184,7 +184,7 @@ export const ProjectList = [
   {
     name: "NH48 Furniture Website",
     githubLink: "https://github.com/rahulmourya336/code-name-nh48",
-    demoLink: "https://uat-nh48.netlify.app/",
+    demoLink: "https://nh48.in/",
     thumbnail: "/NH48_thumbnail.png",
     tags: [
       "ReactJS",
