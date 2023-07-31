@@ -147,7 +147,7 @@ export const socialHandleList = [
 
 export const ProjectList = [
   {
-    name: "Todo App",
+    name: "Vanilla JS Todo App",
     githubLink: "https://github.com/rahulmourya336/VanillaToDo",
     demoLink: "https://vanillav2beta.netlify.com/",
     thumbnail: "/todo_thumbnail.png",
@@ -160,25 +160,51 @@ export const ProjectList = [
     thumbnail: "/css_thumbnail.png",
     tags: ["CSS3"],
   },
+  // {
+  //   name: "100 Days of React",
+  //   githubLink: "https://github.com/rahulmourya336/react-101",
+  //   demoLink: "http://react-101-git-master.rahulmourya336.vercel.app/",
+  //   thumbnail: "/react_thumbnail.png",
+  //   tags: ["ReactJS"],
+  // },
   {
-    name: "100 Days of React",
-    githubLink: "https://github.com/rahulmourya336/react-101",
-    demoLink: "http://react-101-git-master.rahulmourya336.vercel.app/",
-    thumbnail: "/react_thumbnail.png",
+    name: "React.js Todo App",
+    githubLink:
+      "https://github.com/rahulmourya336/react-101/tree/master/src/Todo",
+    demoLink: "https://react-101-git-master-rahulmourya336.vercel.app/todo",
+    thumbnail: "/todo_application.png",
     tags: ["ReactJS"],
   },
+  {
+    name: "Number Guessing Game",
+    githubLink:
+      "https://github.com/rahulmourya336/react-101/tree/master/src/NumberGuessing",
+    demoLink:
+      "https://react-101-git-master-rahulmourya336.vercel.app/number-guessing",
+    thumbnail: "/number_guessing.png",
+    tags: ["ReactJS"],
+  },
+  {
+    name: "Quote Generator",
+    githubLink:
+      "https://github.com/rahulmourya336/react-random-quote-generator",
+    demoLink: "https://react-random-quote.vercel.app/",
+    thumbnail: "/quote_generator.png",
+    tags: ["ReactJS"],
+  },
+
   {
     name: "Weather APP",
     githubLink: "https://github.com/rahulmourya336/react-weather",
     demoLink: "https://react101-weather.netlify.app/",
-    thumbnail: "/weather_thumbnail.png",
+    thumbnail: "/_weather_thumbnail.png",
     tags: ["ReactJS", "OpenWeather API"],
   },
   {
     name: "Calculator",
     githubLink: "https://github.com/rahulmourya336/react-calc",
     demoLink: "https://react-basic-calc.netlify.app/",
-    thumbnail: "/calc_thumbnail.png",
+    thumbnail: "/_calc_thumbnail.png",
     tags: ["ReactJS", "Styled Components"],
   },
   {
