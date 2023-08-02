@@ -176,6 +176,13 @@ export const ProjectList = [
     tags: ["ReactJS"],
   },
   {
+    name: "Full-stack Todo App",
+    githubLink: "https://github.com/rahulmourya336/todo-with-theme",
+    demoLink: "https://react101-todo.netlify.app/",
+    thumbnail: "/full_stack_todo.png",
+    tags: ["ReactJS", "NodeJS", "MongoDB"],
+  },
+  {
     name: "Number Guessing Game",
     githubLink:
       "https://github.com/rahulmourya336/react-101/tree/master/src/NumberGuessing",
