@@ -10,7 +10,7 @@ const commonClasses = "border-b-2 hover:border-gray-500 pt-1 pb-1";
 export const NavLinks = [
   {
     id: 1,
-    title: "About",
+    title: "Home",
     href: "/",
     cssClasses: commonClasses,
     target: "_self",
@@ -48,13 +48,13 @@ export const NavLinks = [
 export const languagesList = [
   "HTML",
   "CSS3",
-  "Javascript",
+  "JavaScript",
   "Python",
   "MySQL",
 ].join(", ");
 
 export const frameWorksAndTools = [
-  "React",
+  "React.JS",
   "Next.JS",
   "Vue.JS",
   "Node.JS",
@@ -71,7 +71,7 @@ export const workHistory = [
         position: "Software Developer",
         duration: "Jan 2022 to Present",
         responsibilities: [
-          "Built all in one claim settlement portal with VueJS.",
+          "Built all in one claim settlement portal with Vue.JS.",
           "Migrated patient app from Angular to React.",
           "Automated patient chits collection for EDI generation, resulting higher settlement ratio.",
           "Conducting code reviews to ensure quality of code & collaboration with stakeholders for requirement & to architect solution.",
@@ -82,7 +82,7 @@ export const workHistory = [
   },
 
   {
-    companyName: "Deqode",
+    companyName: "Deqode Solutions",
     positionAndResponsibilities: [
       {
         position: "Senior Solution Engineer",
@@ -106,11 +106,11 @@ export const workHistory = [
         responsibilities: [
           "Worked on internal chat application RSPL chat, created APIs in Node.JS + Typescript and UI with Angular v7.",
           "Built internal tools for seating management using SVG & Vanilla Javascript.",
-          "Worked on TLH (The Launday House) product, built components in ReactJS and implemented tag printing using thermal printer using ZPL commands.",
+          "Worked on TLH (The Laundry House) product, built components in ReactJS and implemented tag printing using thermal printer using ZPL commands.",
           "Created firebase function to keep track of unread messages count for TenFold Android app.",
-          "Created APIs in Node.JS for BOA Hub Client, used Google distance matrix API to calculate distance & book nearest available BOA Pod. Used AWS beankstalk to deploy Node.JS Backend & cloudfront to host frontend.",
+          "Created APIs in Node.JS for BOA Hub Client, used Google distance matrix API to calculate distance & book nearest available BOA Pod. Used AWS beanstalk to deploy Node.JS Backend & CloudFront to host frontend.",
           "Worked in all aspects of agile software development including design, implementation, and deployment.",
-          "Technologies: Material UI, Angular 4+, ReactJS, Websocket, Firebase, AWS & SonarQube",
+          "Technologies: Material UI, Angular 4+, ReactJS, WebSocket, Firebase, AWS & SonarQube",
         ],
       },
     ],
@@ -147,18 +147,18 @@ export const socialHandleList = [
 
 export const ProjectList = [
   {
-    name: "Vanilla JS Todo App",
-    githubLink: "https://github.com/rahulmourya336/VanillaToDo",
-    demoLink: "https://vanillav2beta.netlify.com/",
-    thumbnail: "/todo_thumbnail.png",
-    tags: ["vanillaJS, SpectreCSS"],
-  },
-  {
     name: "100 Days of CSS",
     githubLink: "https://github.com/rahulmourya336/css-101",
     demoLink: "http://css-101-git-master.rahulmourya336.vercel.app/",
     thumbnail: "/css_thumbnail.png",
     tags: ["CSS3"],
+  },
+  {
+    name: "Vanilla JS Todo App",
+    githubLink: "https://github.com/rahulmourya336/VanillaToDo",
+    demoLink: "https://vanillav2beta.netlify.com/",
+    thumbnail: "/todo_thumbnail.png",
+    tags: ["vanillaJS", "SpectreCSS"],
   },
   // {
   //   name: "100 Days of React",
@@ -168,7 +168,7 @@ export const ProjectList = [
   //   tags: ["ReactJS"],
   // },
   {
-    name: "React.js Todo App",
+    name: "React.JS Todo App",
     githubLink:
       "https://github.com/rahulmourya336/react-101/tree/master/src/Todo",
     demoLink: "https://react-101-git-master-rahulmourya336.vercel.app/todo",
@@ -212,12 +212,6 @@ export const ProjectList = [
     githubLink: "https://github.com/rahulmourya336/code-name-nh48",
     demoLink: "https://nh48.in/",
     thumbnail: "/NH48_thumbnail.png",
-    tags: [
-      "ReactJS",
-      "Tailwind CSS",
-      "Google Maps",
-      "Styled Components",
-      "HeadlessUI",
-    ],
+    tags: ["ReactJS", "Tailwind CSS", "HeadlessUI"],
   },
 ];

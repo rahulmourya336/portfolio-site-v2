@@ -36,6 +36,11 @@ const Project = () => {
                     <div className="py-2 font-bold col-span-2">
                       {project.name}
                     </div>
+                    <div className="col-span-2 font-normal text-xs w-max">
+                      {project.tags.map((tag, id) => (
+                        <span key={id} className="mr-1 p-1 bg-gray-500 rounded">{tag}</span>
+                      ))}
+                    </div>
                     <div>
                       <IconGithubTransparent className="inline" />{" "}
                       <a
