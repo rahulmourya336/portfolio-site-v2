@@ -32,7 +32,7 @@ export const NavLinks = [
   {
     id: 4,
     title: "Resume",
-    href: "https://flowcv.com/resume/1jmeqqddgi",
+    href: "/Rahul_Mourya_CV.pdf",
     cssClasses: commonClasses,
     target: "_blank",
   },
