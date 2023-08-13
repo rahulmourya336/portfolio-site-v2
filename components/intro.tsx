@@ -1,7 +1,4 @@
-import {
-  IconGithubTransparent,
-  IconInstagarmOutline,
-} from "./icons";
+import { IconGithubTransparent, IconInstagarmOutline, IconProjects } from "./icons";
 
 const Intro = () => {
   return (
@@ -31,23 +28,45 @@ const Intro = () => {
             {"I occasionally play video games & create vector illustrations."}
           </div>
 
-          <div className="text-sm pb-4 grid gap-x-8 grid-cols-2 items-center justify-items-center">
-            <div>
-              <a href="https://github.com/rahulmourya336" target="_blank">
-                <IconGithubTransparent className="text-5xl" />
+          <div className="text-sm pb-4 grid gap-x-4 items-center justify-items-center grid-cols-2">
+            <div className="py-2">
+              <a href="https://github.com/rahulmourya336" target={"_blank"}>
+                <button
+                  type="button"
+                  className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                >
+                  <IconGithubTransparent className="text-xl mr-2" />
+                  Code
+                </button>
               </a>
             </div>
-
-            <div className="content-center">
+            <div className="py-2">
               <a
                 href="https://www.instagram.com/archive.sketch"
-                target="_blank"
+                target={"_blank"}
               >
-                <IconInstagarmOutline className="text-5xl" />
+                <button
+                  type="button"
+                  className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                >
+                  <IconInstagarmOutline className="text-xl mr-2" />
+                  Design
+                </button>
               </a>
             </div>
-            <div className="py-2">Code</div>
-            <div className="py-2">Design</div>
+            <div className="py-2 col-span-2">
+              <a
+                href="/work#projects"
+              >
+                <button
+                  type="button"
+                  className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                >
+                  <IconProjects className="text-xl mr-2" />
+                  Projects
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </div>

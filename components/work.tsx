@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useParams, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { frameWorksAndTools, languagesList, workHistory } from "./common";
 import Project from "./project";
 
@@ -8,7 +9,17 @@ const WorkDetails = () => {
     WORK = 0,
     PROJECT,
   }
-  const [selectedTab, setSelectedTab] = useState(TAB.WORK);
+  const [selectedTab, setSelectedTab] = useState<number>();
+
+  useEffect(() => {
+    const gotoProjects =
+      window?.location?.hash?.split("#")?.includes("projects") || null;
+    if (gotoProjects) {
+      setSelectedTab(TAB.PROJECT);
+    } else {
+      setSelectedTab(TAB.WORK)
+    }
+  }, []);
 
   const tabStyleClasses =
     "bg-white text-black px-5 py-1 border-b-4 border-purple-500 hover:text-gray-400";
