@@ -55,3 +55,7 @@ body::-webkit-scrollbar-thumb {
   max-width: 81ch;
   margin: 0 auto;
 }
+
+.no-tap-highlight {
+  -webkit-tap-highlight-color: transparent;
+}

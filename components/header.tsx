@@ -8,7 +8,7 @@ const Header = () => {
   const Links = NavLinks;
   return (
     <>
-      <div className="flex items-center justify-around backdrop-blur-sm	bg-transparent  sticky top-0 z-30 w-full shadow-xl transition-all">
+      <div className="flex items-center justify-around backdrop-blur-sm	bg-transparent  sticky top-0 z-30 w-full shadow-xl transition-all no-tap-highlight">
         <div className="p-5 flex justify-between items-center flex-wrap gap-y-4  gap-x-6 sm:gap-x-10 cursor-pointer sm:justify-center">
           {Links.map((link) => {
             const isActive = pathname === link.href;

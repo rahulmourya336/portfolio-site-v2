@@ -17,7 +17,7 @@ const WorkDetails = () => {
     if (gotoProjects) {
       setSelectedTab(TAB.PROJECT);
     } else {
-      setSelectedTab(TAB.WORK)
+      setSelectedTab(TAB.WORK);
     }
   }, []);
 
@@ -28,22 +28,20 @@ const WorkDetails = () => {
     <div className="flex justify-center flex-wrap flex-grow wrapper transition-all">
       <div className=" border-white py-5 w-auto px-5 ">
         {workHistory.map((work, idx) => (
-          <>
-            <div key={idx} className="py-3 project">
-              <div className="font-bold text-xl">{work.companyName}</div>
-              {work.positionAndResponsibilities.map((PR, idx1) => (
-                <div key={idx1} className="px-2 py-2">
-                  <p className="text-lg">{PR.position}</p>
-                  <p className="text-sm text-gray-400">{PR.duration}</p>
-                  <ul className="list-disc px-6 py-2 leading-8 text-justify	">
-                    {PR.responsibilities.map((responsibilities, idx2) => (
-                      <li key={idx2}>{responsibilities}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </>
+          <div key={idx} className="py-3 project">
+            <div className="font-bold text-xl">{work.companyName}</div>
+            {work.positionAndResponsibilities.map((PR, idx1) => (
+              <div key={idx1} className="px-2 py-2">
+                <p className="text-lg">{PR.position}</p>
+                <p className="text-sm text-gray-400">{PR.duration}</p>
+                <ul className="list-disc px-6 py-2 leading-8 text-justify	">
+                  {PR.responsibilities.map((responsibilities, idx2) => (
+                    <li key={idx2}>{responsibilities}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         ))}
       </div>
     </div>
