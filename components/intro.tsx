@@ -1,76 +1,108 @@
+"use client";
+import { motion } from "framer-motion";
+import Link from "next/link";
 import { IconGithubTransparent, IconInstagarmOutline, IconProjects } from "./icons";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.12, duration: 0.5, ease: "easeOut" },
+  }),
+};
 
 const Intro = () => {
   return (
-    <>
-      <div className="grid h-screen-fix w-screen-fix wrapper" id="about">
-        <div className="text-2xl px-4 text-center flex items-center justify-center flex-col gap-6">
-          {"Hi👋🏼 I'm Rahul Mourya, a web developer."}
-          <div className="text-sm px-4 text-left leading-6">
-            {
-              'I enjoy building consumer and developer-facing products. While my job title says "Frontend Engineer", I like working on all the parts of the stack.'
-            }
-          </div>
+    <div className="min-h-[86vh] flex items-center justify-center px-4 py-16">
+      <div className="wrapper w-full">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col gap-5 max-w-lg mx-auto text-center"
+        >
+          <motion.h1
+            custom={0}
+            variants={fadeUp}
+            className="text-3xl font-bold text-gray-900 dark:text-white"
+          >
+            Hi, I&apos;m Rahul. 👋
+          </motion.h1>
 
-          <div className="text-sm px-4 text-left leading-6">
-            {
-              "I love exploring frontend frameworks, especially the ones which faster DOM update and reliability. I previously wrote some apps in Angular, Vue.JS & React.JS, and I'm learning Svelte now."
-            }
-          </div>
+          <motion.p
+            custom={1}
+            variants={fadeUp}
+            className="text-base text-gray-600 dark:text-gray-300 leading-7"
+          >
+            I&apos;m a frontend engineer who enjoys building things people
+            actually use, from polished UIs to the APIs behind them. My job
+            title says frontend, but I like working across the full stack.
+          </motion.p>
 
-          <div className="text-sm px-4 text-left leading-6">
-            {
-              "I recently discovered my interest in backend engineering, and I'm looking for pro-bono (and preferably open source) backend & AWS opportunities in order to help me grow."
-            }
-          </div>
+          <motion.p
+            custom={2}
+            variants={fadeUp}
+            className="text-base text-gray-600 dark:text-gray-300 leading-7"
+          >
+            I&apos;ve spent most of my career in the React / Vue / Next.js
+            ecosystem and I&apos;m always curious about what makes web
+            experiences feel fast and intuitive.
+          </motion.p>
 
-          <div className="text-sm px-4 text-left  leading-6">
-            {"I occasionally play video games & create vector illustrations."}
-          </div>
+          <motion.p
+            custom={3}
+            variants={fadeUp}
+            className="text-base text-gray-600 dark:text-gray-300 leading-7"
+          >
+            Lately I&apos;ve been exploring backend engineering and cloud
+            infrastructure. I&apos;m actively looking for open-source or
+            pro-bono opportunities to grow in those areas. Hit me up if that
+            sounds like a fit.
+          </motion.p>
 
-          <div className="text-sm pb-4 grid gap-x-4 items-center justify-items-center grid-cols-2">
-            <div className="py-2">
-              <a href="https://github.com/rahulmourya336" target={"_blank"}>
-                <button
-                  type="button"
-                  className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                >
-                  <IconGithubTransparent className="text-xl mr-2" />
-                  Code
-                </button>
-              </a>
-            </div>
-            <div className="py-2">
-              <a
-                href="https://www.instagram.com/archive.sketch"
-                target={"_blank"}
-              >
-                <button
-                  type="button"
-                  className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                >
-                  <IconInstagarmOutline className="text-xl mr-2" />
-                  Design
-                </button>
-              </a>
-            </div>
-            <div className="py-2 col-span-2">
-              <a
-                href="/work#projects"
-              >
-                <button
-                  type="button"
-                  className="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                >
-                  <IconProjects className="text-xl mr-2" />
-                  Projects
-                </button>
-              </a>
-            </div>
-          </div>
-        </div>
+          <motion.p
+            custom={4}
+            variants={fadeUp}
+            className="text-base text-gray-600 dark:text-gray-300 leading-7"
+          >
+            When I&apos;m not coding, you&apos;ll find me deep in a video game
+            or sketching vector illustrations.
+          </motion.p>
+
+          <motion.div
+            custom={5}
+            variants={fadeUp}
+            className="flex flex-wrap gap-3 pt-2 justify-center"
+          >
+            <a
+              href="https://github.com/rahulmourya336"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:opacity-80 transition-opacity"
+            >
+              <IconGithubTransparent className="text-base" />
+              Code
+            </a>
+            <a
+              href="https://www.instagram.com/archive.sketch"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg text-sm font-medium hover:opacity-80 transition-opacity"
+            >
+              <IconInstagarmOutline className="text-base" />
+              Design
+            </a>
+            <Link
+              href="/work#projects"
+              className="inline-flex items-center gap-2 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              <IconProjects className="text-base" />
+              Projects
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
-    </>
+    </div>
   );
 };
 

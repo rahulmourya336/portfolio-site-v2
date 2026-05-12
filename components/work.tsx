@@ -1,7 +1,7 @@
 "use client";
-import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { frameWorksAndTools, languagesList, workHistory } from "./common";
+import { motion, AnimatePresence } from "framer-motion";
+import { skillCategories, workHistory } from "./common";
 import Project from "./project";
 
 const WorkDetails = () => {
@@ -9,88 +9,124 @@ const WorkDetails = () => {
     WORK = 0,
     PROJECT,
   }
-  const [selectedTab, setSelectedTab] = useState<number>();
+  const [selectedTab, setSelectedTab] = useState<number>(TAB.WORK);
 
   useEffect(() => {
     const gotoProjects =
-      window?.location?.hash?.split("#")?.includes("projects") || null;
-    if (gotoProjects) {
-      setSelectedTab(TAB.PROJECT);
-    } else {
-      setSelectedTab(TAB.WORK);
-    }
+      window?.location?.hash?.split("#")?.includes("projects") || false;
+    if (gotoProjects) setSelectedTab(TAB.PROJECT);
   }, []);
 
-  const tabStyleClasses =
-    "bg-white text-black px-5 py-1 border-b-4 border-purple-500 hover:text-gray-400";
-
-  const WorkDetails = (
-    <div className="flex justify-center flex-wrap flex-grow wrapper transition-all">
-      <div className=" border-white py-5 w-auto px-5 ">
-        {workHistory.map((work, idx) => (
-          <div key={idx} className="py-3 project">
-            <div className="font-bold text-xl">{work.companyName}</div>
-            {work.positionAndResponsibilities.map((PR, idx1) => (
-              <div key={idx1} className="px-2 py-2">
-                <p className="text-lg">{PR.position}</p>
-                <p className="text-sm text-gray-400">{PR.duration}</p>
-                <ul className="list-disc px-6 py-2 leading-8 text-justify	">
-                  {PR.responsibilities.map((responsibilities, idx2) => (
-                    <li key={idx2}>{responsibilities}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+  return (
+    <div className="wrapper px-4 py-10">
+      {/* Skills */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="mb-10 flex flex-col gap-4"
+      >
+        {skillCategories.map((category) => (
+          <div key={category.label}>
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">
+              {category.label}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {category.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 text-sm rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
         ))}
+      </motion.div>
+
+      {/* Tabs */}
+      <div className="flex gap-1 border-b border-gray-200 dark:border-gray-800 mb-8">
+        {[
+          { label: "Experience", tab: TAB.WORK },
+          { label: "Projects", tab: TAB.PROJECT },
+        ].map(({ label, tab }) => (
+          <button
+            key={tab}
+            onClick={() => setSelectedTab(tab)}
+            className={`px-4 py-2 text-sm font-medium transition-colors relative ${
+              selectedTab === tab
+                ? "text-purple-600 dark:text-purple-400"
+                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+            }`}
+          >
+            {label}
+            {selectedTab === tab && (
+              <motion.div
+                layoutId="activeTab"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-500"
+              />
+            )}
+          </button>
+        ))}
       </div>
+
+      {/* Tab content */}
+      <AnimatePresence mode="wait">
+        {selectedTab === TAB.WORK ? (
+          <motion.div
+            key="work"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+          >
+            {workHistory.map((work) => (
+              <div
+                key={work.companyName}
+                className="mb-10 relative pl-6 border-l-2 border-gray-200 dark:border-gray-800"
+              >
+                <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-purple-500 dark:bg-purple-400" />
+                <div className="font-semibold text-lg text-gray-900 dark:text-white mb-1">
+                  {work.companyName}
+                </div>
+                {work.positionAndResponsibilities.map((PR) => (
+                  <div key={PR.position} className="mt-1">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {PR.position}
+                    </p>
+                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 mb-3">
+                      {PR.duration}
+                    </p>
+                    <ul className="space-y-2">
+                      {PR.responsibilities.map((r, i) => (
+                        <li
+                          key={i}
+                          className="text-sm text-gray-600 dark:text-gray-400 leading-6 flex gap-2 items-start"
+                        >
+                          <span className="mt-2.5 w-1 h-1 rounded-full bg-gray-400 dark:bg-gray-600 flex-shrink-0" />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            key="projects"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+          >
+            <Project />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
-  );
-  return (
-    <>
-      <div
-        id="work"
-        className="flex gap-10 flex-wrap px-4 pb-8 items-center justify-around border-spacing-60 w-full"
-      >
-        <table className="table-fixed px-5">
-          <thead className="border-b">
-            <tr>
-              <th className="py-2 text-left pl-2">Languages</th>
-              <th className="py-2 text-left pl-2">Frameworks & Tools</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="leading-7">
-              <td className="pl-2 pr-6 pt-2">{languagesList}</td>
-              <td className="pl-2 pr-6 pt-2">{frameWorksAndTools}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div className="grid grid-cols-2 place-items-center wrapper border-t  border-b py-4 cursor-pointer">
-        <div
-          onClick={() => setSelectedTab(TAB.WORK)}
-          className={`${
-            selectedTab === TAB.WORK ? tabStyleClasses : "hover:text-gray-400"
-          }`}
-        >
-          Work
-        </div>
-        <div
-          onClick={() => setSelectedTab(TAB.PROJECT)}
-          className={` ${
-            selectedTab === TAB.PROJECT
-              ? tabStyleClasses
-              : "hover:text-gray-400"
-          }`}
-        >
-          Projects
-        </div>
-      </div>
-
-      {selectedTab === TAB.WORK ? WorkDetails : <Project />}
-    </>
   );
 };
 

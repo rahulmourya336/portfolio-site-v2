@@ -1,45 +1,62 @@
+"use client";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { socialHandleList } from "./common";
-import { IconContact } from "./icons";
 
 const ContactDetails = () => {
   return (
-    <>
-      <div className="grid h-screen-fix w-screen-fix wrapper transition-all" id="about">
-        <div className="text-2xl px-4 text-center flex items-center justify-start flex-col gap-6 py-20">
-        <IconContact  className="text-6xl text-white"/>
-          <div className="text-lg px-4 text-left leading-7">
-            {
-              "Drop me an email if there is anything you would like to talk about. Could be a hello, a potential work opportunity - anything, really. You could even send memes."
-            }
-          </div>
+    <div className="min-h-[86vh] flex items-center justify-center px-4 py-16">
+      <div className="wrapper w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="flex flex-col gap-6 max-w-lg"
+        >
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Let&apos;s talk.
+          </h1>
 
-          <div className="text-lg px-4 text-left leading-7 underline">
-            <a href="mailto:ierahul20@gmail.com">
-              ierahul20[at]gmail[dot]com
-            </a>
-          </div>
+          <p className="text-base text-gray-600 dark:text-gray-300 leading-7">
+            Drop me an email. Could be about a project, an opportunity, or
+            just to say hi. Memes are welcome too.
+          </p>
 
-          <div className="text-lg px-4 text-left leading-7 text-gray-400">
-            {
-              "And if you'd like to follow me on social media and other websites on the Internet, here are some cool buttons that lead to my profiles."
-            }
-          </div>
+          <a
+            href="mailto:ierahul20@gmail.com"
+            className="text-purple-600 dark:text-purple-400 font-medium hover:underline text-lg w-fit"
+          >
+            ierahul20@gmail.com
+          </a>
 
-          <div className="px-4 text-left leading-6 flex gap-5 flex-wrap">
-            {socialHandleList.map((handle, idx) => {
-              return (
-                <>
-                  <Link href={handle.link}>
-                    {<handle.icon className="text-4xl" />}
+          <div>
+            <p className="text-sm text-gray-400 dark:text-gray-500 mb-4">
+              Or find me elsewhere on the internet:
+            </p>
+            <div className="flex gap-4 flex-wrap">
+              {socialHandleList.map((handle, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.15 + idx * 0.07, duration: 0.3 }}
+                >
+                  <Link
+                    href={handle.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 dark:text-gray-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+                    title={handle.name}
+                  >
+                    <handle.icon className="text-3xl" />
                   </Link>
-                </>
-              );
-            })}
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </>
+    </div>
   );
 };
 

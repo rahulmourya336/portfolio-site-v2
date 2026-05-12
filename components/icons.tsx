@@ -17,3 +17,12 @@ export {
 } from "react-icons/bs";
 
 export { SiNounproject as IconProjects } from "react-icons/si";
+
+export {
+  HiSun as IconSun,
+  HiMoon as IconMoon,
+  HiMenu as IconMenu,
+  HiX as IconClose,
+  HiExternalLink as IconExternalLink,
+  HiGlobe as IconGlobe,
+} from "react-icons/hi";
