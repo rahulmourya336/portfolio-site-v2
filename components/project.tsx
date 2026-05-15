@@ -1,10 +1,10 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ProjectList } from "./common";
+import type { Project } from "@/lib/projects";
 import { IconEye, IconGithubTransparent, IconRightArrow } from "./icons";
 
-const Project = () => {
+const ProjectGrid = ({ projects }: { projects: Project[] }) => {
   return (
     <div>
       <p className="text-sm text-gray-500 dark:text-gray-400 leading-6 mb-6">
@@ -20,7 +20,7 @@ const Project = () => {
       </p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        {ProjectList.map((project, idx) => (
+        {projects.map((project, idx) => (
           <motion.div
             key={project.name}
             initial={{ opacity: 0, y: 15 }}
@@ -77,4 +77,4 @@ const Project = () => {
   );
 };
 
-export default Project;
+export default ProjectGrid;

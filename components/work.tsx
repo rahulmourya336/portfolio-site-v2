@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { skillCategories, workHistory } from "./common";
-import Project from "./project";
+import type { Project } from "@/lib/projects";
+import ProjectGrid from "./project";
 
-const WorkDetails = () => {
+const WorkDetails = ({ projects }: { projects: Project[] }) => {
   enum TAB {
     WORK = 0,
     PROJECT,
@@ -122,7 +123,7 @@ const WorkDetails = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
           >
-            <Project />
+            <ProjectGrid projects={projects} />
           </motion.div>
         )}
       </AnimatePresence>

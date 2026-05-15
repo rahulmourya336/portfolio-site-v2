@@ -1,0 +1,39 @@
+backend:
+  name: github
+  repo: rahulmourya336/portfolio-site-v2
+  branch: main
+
+local_backend: true
+
+media_folder: public/images/projects
+public_folder: /images/projects
+
+collections:
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: content/projects
+    create: true
+    delete: true
+    slug: "{{order}}-{{slug}}"
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: GitHub Link, name: githubLink, widget: string }
+      - { label: Demo Link, name: demoLink, widget: string }
+      - { label: Thumbnail, name: thumbnail, widget: image }
+      - label: Tags
+        name: tags
+        widget: list
+        field:
+          label: Tag
+          name: tag
+          widget: string
+      - label: Description
+        name: description
+        widget: text
+        required: false
+      - label: Sort Order
+        name: order
+        widget: number
+        value_type: int
+        default: 99
