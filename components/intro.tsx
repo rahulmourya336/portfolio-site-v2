@@ -34,9 +34,9 @@ const Intro = () => {
             variants={fadeUp}
             className="text-base text-gray-600 dark:text-gray-300 leading-7"
           >
-            I&apos;m a frontend engineer who enjoys building things people
-            actually use, from polished UIs to the APIs behind them. My job
-            title says frontend, but I like working across the full stack.
+            I&apos;m a full stack engineer who enjoys building things people
+            actually use, from polished UIs to the Python and Node.js APIs
+            behind them, and the AWS infrastructure they run on.
           </motion.p>
 
           <motion.p
@@ -54,10 +54,9 @@ const Intro = () => {
             variants={fadeUp}
             className="text-base text-gray-600 dark:text-gray-300 leading-7"
           >
-            Lately I&apos;ve been exploring backend engineering and cloud
-            infrastructure. I&apos;m actively looking for open-source or
-            pro-bono opportunities to grow in those areas. Hit me up if that
-            sounds like a fit.
+            These days I work across the full stack: React and MUI on the
+            front, Python on AWS Lambda behind it, and Terraform holding the
+            infrastructure together. Hit me up if you want to build something.
           </motion.p>
 
           <motion.p

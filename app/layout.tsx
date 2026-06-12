@@ -7,10 +7,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Rahul Mourya",
-  description: "Frontend engineer who enjoys building things people actually use.",
+  description: "Full stack engineer who enjoys building things people actually use.",
   keywords: [
     "Rahul Mourya",
-    "frontend engineer",
+    "full stack engineer",
     "software developer",
     "React developer",
     "Next.js developer",
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Rahul Mourya" }],
   openGraph: {
-    title: "Rahul Mourya, Frontend Engineer",
-    description: "Frontend engineer who enjoys building things people actually use.",
+    title: "Rahul Mourya, Full Stack Engineer",
+    description: "Full stack engineer who enjoys building things people actually use.",
     type: "website",
     locale: "en_US",
     siteName: "Rahul Mourya",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@rahucrux",
     title: "Rahul Mourya",
-    description: "Frontend engineer who enjoys building things people actually use.",
+    description: "Full stack engineer who enjoys building things people actually use.",
     images: ["/favicon.png"],
   },
   alternates: {
@@ -49,7 +49,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Rahul Mourya",
-  jobTitle: "Frontend Engineer",
+  jobTitle: "Full Stack Engineer",
   email: "ierahul20@gmail.com",
   sameAs: [
     "https://www.linkedin.com/in/mouryarahul/",
@@ -73,7 +73,7 @@ const jsonLd = {
   ],
   worksFor: {
     "@type": "Organization",
-    name: "Heals Healthcare",
+    name: "Miratech Group",
   },
 };
 
