@@ -24,7 +24,7 @@ export const NavLinks = [
   },
   {
     id: 3,
-    title: "Get In Touch",
+    title: "Contact",
     href: "/contact",
     cssClasses: commonClasses,
     target: "_self",
