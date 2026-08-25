@@ -1,132 +1,92 @@
-"use client";
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { skillCategories, workHistory } from "./common";
-import type { Project } from "@/lib/projects";
-import ProjectGrid from "./project";
+import { Reveal } from "./reveal";
 
-const WorkDetails = ({ projects }: { projects: Project[] }) => {
-  enum TAB {
-    WORK = 0,
-    PROJECT,
-  }
-  const [selectedTab, setSelectedTab] = useState<number>(TAB.WORK);
-
-  useEffect(() => {
-    const gotoProjects =
-      window?.location?.hash?.split("#")?.includes("projects") || false;
-    if (gotoProjects) setSelectedTab(TAB.PROJECT);
-  }, []);
-
+const WorkDetails = () => {
   return (
-    <div className="wrapper px-4 py-10">
-      {/* Skills */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
-        className="mb-10 flex flex-col gap-4"
-      >
-        {skillCategories.map((category) => (
-          <div key={category.label}>
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">
-              {category.label}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {category.skills.map((skill) => (
+    <div className="wrapper-wide px-4 py-12">
+      <header className="mb-10 flex max-w-2xl flex-col gap-4">
+        <h1 className="font-display text-4xl text-fg sm:text-5xl">Work</h1>
+        <p className="leading-7 text-fg-muted">
+          Seven years of shipping: contact center tooling for a US health
+          insurer, a claims portal used by 52,000 people, and the internal
+          products before that.
+        </p>
+      </header>
+
+      <section aria-labelledby="skills-heading" className="mb-14">
+        <h2
+          id="skills-heading"
+          className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-fg-subtle"
+        >
+          Toolkit
+        </h2>
+        <div className="flex flex-col gap-5">
+          {skillCategories.map((category) => (
+            <Reveal key={category.label}>
+              <p className="mb-2 text-sm font-medium text-fg">{category.label}</p>
+              <ul className="flex flex-wrap gap-2">
+                {category.skills.map((skill) => (
+                  <li
+                    key={skill}
+                    className="rounded-full border border-border bg-surface px-3 py-1 text-sm text-fg-muted"
+                  >
+                    {skill}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="experience-heading">
+        <h2
+          id="experience-heading"
+          className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-fg-subtle"
+        >
+          Experience
+        </h2>
+
+        <ol className="flex flex-col gap-10">
+          {workHistory.map((work) => (
+            <li key={work.companyName}>
+              <Reveal className="relative border-l-2 border-border pl-6">
                 <span
-                  key={skill}
-                  className="px-3 py-1 text-sm rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </motion.div>
-
-      {/* Tabs */}
-      <div className="flex gap-1 border-b border-gray-200 dark:border-gray-800 mb-8">
-        {[
-          { label: "Experience", tab: TAB.WORK },
-          { label: "Projects", tab: TAB.PROJECT },
-        ].map(({ label, tab }) => (
-          <button
-            key={tab}
-            onClick={() => setSelectedTab(tab)}
-            className={`px-4 py-2 text-sm font-medium transition-colors relative ${
-              selectedTab === tab
-                ? "text-purple-600 dark:text-purple-400"
-                : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-            }`}
-          >
-            {label}
-            {selectedTab === tab && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-500"
-              />
-            )}
-          </button>
-        ))}
-      </div>
-
-      {/* Tab content */}
-      <AnimatePresence mode="wait">
-        {selectedTab === TAB.WORK ? (
-          <motion.div
-            key="work"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-          >
-            {workHistory.map((work) => (
-              <div
-                key={work.companyName}
-                className="mb-10 relative pl-6 border-l-2 border-gray-200 dark:border-gray-800"
-              >
-                <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-purple-500 dark:bg-purple-400" />
-                <div className="font-semibold text-lg text-gray-900 dark:text-white mb-1">
+                  className="absolute -left-[5px] top-2 h-2 w-2 rounded-full bg-accent"
+                  aria-hidden="true"
+                />
+                <h3 className="mb-1 text-lg font-semibold text-fg">
                   {work.companyName}
-                </div>
-                {work.positionAndResponsibilities.map((PR) => (
-                  <div key={PR.position} className="mt-1">
-                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {PR.position}
+                </h3>
+                {work.positionAndResponsibilities.map((role) => (
+                  <div key={role.position} className="mt-1">
+                    <p className="text-sm font-medium text-fg-muted">
+                      {role.position}
                     </p>
-                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5 mb-3">
-                      {PR.duration}
+                    <p className="mb-3 mt-0.5 text-xs text-fg-subtle">
+                      {role.duration}
                     </p>
                     <ul className="space-y-2">
-                      {PR.responsibilities.map((r, i) => (
+                      {role.responsibilities.map((item, index) => (
                         <li
-                          key={i}
-                          className="text-sm text-gray-600 dark:text-gray-400 leading-6 flex gap-2 items-start"
+                          key={index}
+                          className="flex items-start gap-2 text-sm leading-6 text-fg-muted"
                         >
-                          <span className="mt-2.5 w-1 h-1 rounded-full bg-gray-400 dark:bg-gray-600 flex-shrink-0" />
-                          {r}
+                          <span
+                            className="mt-2.5 h-1 w-1 flex-shrink-0 rounded-full bg-fg-subtle"
+                            aria-hidden="true"
+                          />
+                          {item}
                         </li>
                       ))}
                     </ul>
                   </div>
                 ))}
-              </div>
-            ))}
-          </motion.div>
-        ) : (
-          <motion.div
-            key="projects"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25 }}
-          >
-            <ProjectGrid projects={projects} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
+      </section>
     </div>
   );
 };

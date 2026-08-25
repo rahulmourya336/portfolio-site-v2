@@ -1,11 +1,14 @@
 ---
 name: "Calculator"
+slug: "calculator"
 githubLink: "https://github.com/rahulmourya336/react-calc"
 demoLink: "https://react-basic-calc.netlify.app/"
-thumbnail: "/_calc_thumbnail.png"
+thumbnail: "/projects/calc_thumbnail.webp"
 tags:
   - React.js
   - Styled Components
 description: "A clean calculator app built with React.js and Styled Components."
-order: 8
+kind: "CreativeWork"
+featured: false
+order: 16
 ---
