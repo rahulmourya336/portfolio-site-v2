@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IconGithubTransparent, IconGrid, IconRightArrow } from "./icons";
+import {
+  IconGithubTransparent,
+  IconGrid,
+  IconInstagarmOutline,
+  IconRightArrow,
+} from "./icons";
 
 const stack = ["React", "Next.js", "Vue", "TypeScript", "Python", "AWS"];
 
@@ -65,7 +70,16 @@ const Intro = () => {
             >
               I care about what makes a web experience feel fast and obvious.
               Off the clock you will find me deep in a video game or drawing
-              vector illustrations.
+              vector illustrations, which I post as{" "}
+              <a
+                href="https://www.instagram.com/archive.sketch"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent underline underline-offset-2"
+              >
+                @archive.sketch
+              </a>
+              .
             </p>
 
             <ul
@@ -108,6 +122,15 @@ const Intro = () => {
               >
                 <IconGithubTransparent className="text-base" aria-hidden="true" />
                 GitHub
+              </a>
+              <a
+                href="https://www.instagram.com/archive.sketch"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium text-fg transition-colors hover:bg-surface-2"
+              >
+                <IconInstagarmOutline className="text-base" aria-hidden="true" />
+                Sketches
               </a>
             </div>
           </div>
