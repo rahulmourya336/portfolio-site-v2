@@ -6,21 +6,23 @@
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "cms": "npx decap-server"
+    "lint": "eslint .",
+    "cms": "npx decap-server",
+    "sync:medium": "node scripts/sync-medium.mjs"
   },
   "engines": {
     "node": "20.x"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.20",
     "@types/node": "20.1.2",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.2.6",
-    "framer-motion": "^10.12.17",
     "gray-matter": "^4.0.3",
+    "marked": "^18.0.11",
     "next": "^16.2.6",
     "postcss": "^8.5.14",
     "react": "18.2.0",
