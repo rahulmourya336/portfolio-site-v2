@@ -2,33 +2,191 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-white dark:bg-gray-950 text-gray-900 dark:text-white;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  text-rendering: optimizeLegibility;
-  transition: background-color 0.2s ease, color 0.2s ease;
+/*
+  Design tokens. Every colour in the app comes from here, so a palette change
+  is a change to two blocks instead of a search across every component.
+  Values are raw RGB channels so Tailwind can apply opacity modifiers.
+*/
+@layer base {
+  :root {
+    --bg: 251 251 253;
+    --surface: 255 255 255;
+    --surface-2: 245 245 249;
+    --border: 228 228 235;
+    --fg: 13 13 18;
+    --fg-muted: 84 84 100;
+    --fg-subtle: 116 116 134;
+    --accent: 109 40 217; /* violet-700, 7.4:1 on --bg */
+    --accent-soft: 243 240 255;
+    --accent-fg: 255 255 255;
+    --ring: 124 58 237;
+  }
+
+  .dark {
+    --bg: 8 8 11;
+    --surface: 16 16 22;
+    --surface-2: 24 24 32;
+    --border: 39 39 50;
+    --fg: 245 245 247;
+    --fg-muted: 168 168 182;
+    --fg-subtle: 138 138 154;
+    --accent: 167 139 250; /* violet-400, 8.9:1 on --bg */
+    --accent-soft: 32 24 56;
+    --accent-fg: 8 8 11;
+    --ring: 167 139 250;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header is 57px tall; keep anchored headings clear of it. */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-bg text-fg antialiased;
+    margin: 0;
+    padding: 0;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgb(var(--accent) / 0.22);
+  }
+
+  /* One visible focus style everywhere, keyboard only. */
+  :focus-visible {
+    outline: 2px solid rgb(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  body::-webkit-scrollbar {
+    width: 0.4rem;
+  }
+
+  body::-webkit-scrollbar-track {
+    background-color: rgb(var(--surface-2));
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--border));
+    border-radius: 4px;
+  }
+
+  body::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--fg-subtle));
+  }
 }
 
-body::-webkit-scrollbar {
-  width: 0.25em;
+@layer components {
+  .wrapper {
+    max-width: 72ch;
+    margin: 0 auto;
+  }
+
+  .wrapper-wide {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  /* First tab stop on every page. Visible only when focused. */
+  .skip-link {
+    @apply absolute left-4 -top-16 z-[100] rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-[top];
+  }
+
+  .skip-link:focus {
+    top: 0.75rem;
+  }
+
+  /*
+    Scroll reveal, driven by the scroll position rather than JavaScript.
+    Anything already on screen at load is past the animation range, so it
+    paints at its final state and never holds up the largest paint. Browsers
+    without scroll timelines just show the content.
+  */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        animation: reveal-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 70%;
+      }
+    }
+  }
+
+  .card-hover {
+    @apply transition duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5;
+  }
 }
 
-body::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-900;
+@layer utilities {
+  .no-tap-highlight {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Soft radial wash behind the hero. Pure CSS, no image request. */
+  .hero-glow {
+    background-image: radial-gradient(
+        60rem 30rem at 50% -8rem,
+        rgb(var(--accent) / 0.14),
+        transparent 65%
+      ),
+      radial-gradient(
+        36rem 20rem at 88% 8rem,
+        rgb(var(--accent) / 0.08),
+        transparent 70%
+      );
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
-body::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600;
-  border-radius: 4px;
+/* Long-form post body. Tailwind Typography supplies the rhythm, these
+   overrides pull it onto our token palette. */
+.prose-post {
+  --tw-prose-body: rgb(var(--fg-muted));
+  --tw-prose-headings: rgb(var(--fg));
+  --tw-prose-links: rgb(var(--accent));
+  --tw-prose-bold: rgb(var(--fg));
+  --tw-prose-counters: rgb(var(--fg-subtle));
+  --tw-prose-bullets: rgb(var(--border));
+  --tw-prose-hr: rgb(var(--border));
+  --tw-prose-quotes: rgb(var(--fg));
+  --tw-prose-quote-borders: rgb(var(--accent));
+  --tw-prose-code: rgb(var(--fg));
+  --tw-prose-pre-code: rgb(var(--fg));
+  --tw-prose-pre-bg: rgb(var(--surface-2));
+  --tw-prose-th-borders: rgb(var(--border));
+  --tw-prose-td-borders: rgb(var(--border));
 }
 
-.wrapper {
-  max-width: 81ch;
-  margin: 0 auto;
+.prose-post :not(pre) > code {
+  @apply rounded border border-border bg-surface-2 px-1.5 py-0.5 text-[0.85em] font-normal;
 }
 
-.no-tap-highlight {
-  -webkit-tap-highlight-color: transparent;
+.prose-post :not(pre) > code::before,
+.prose-post :not(pre) > code::after {
+  content: "";
+}
+
+.prose-post pre {
+  @apply overflow-x-auto rounded-xl border border-border;
+}
+
+/* Respect the OS setting. Motion is decoration here, never information. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

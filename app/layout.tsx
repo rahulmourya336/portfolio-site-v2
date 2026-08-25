@@ -1,42 +1,64 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/theme-provider";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { site, siteUrl, socialProfiles } from "@/lib/site";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const display = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Rahul Mourya",
-  description: "Full stack engineer who enjoys building things people actually use.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Rahul Mourya, Full Stack Engineer",
+    template: "%s | Rahul Mourya",
+  },
+  description:
+    "Full stack engineer with 7+ years building React and Vue front ends, Python and Node APIs, and the AWS infrastructure under them.",
+  applicationName: "Rahul Mourya",
+  authors: [{ name: site.name, url: siteUrl }],
+  creator: site.name,
+  publisher: site.name,
   keywords: [
     "Rahul Mourya",
     "full stack engineer",
-    "software developer",
     "React developer",
     "Next.js developer",
-    "Vue.js",
-    "portfolio",
+    "Vue.js developer",
+    "Python AWS Lambda",
+    "frontend engineer India",
   ],
-  authors: [{ name: "Rahul Mourya" }],
   openGraph: {
-    title: "Rahul Mourya, Full Stack Engineer",
-    description: "Full stack engineer who enjoys building things people actually use.",
     type: "website",
     locale: "en_US",
-    siteName: "Rahul Mourya",
-    images: [{ url: "/favicon.png" }],
+    siteName: site.name,
+    url: siteUrl,
   },
   twitter: {
     card: "summary_large_image",
-    site: "@rahucrux",
-    title: "Rahul Mourya",
-    description: "Full stack engineer who enjoys building things people actually use.",
-    images: ["/favicon.png"],
+    site: site.twitterHandle,
+    creator: site.twitterHandle,
   },
-  alternates: {
-    canonical: "/",
-    languages: {
-      en: "/",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
   icons: {
@@ -45,20 +67,22 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
+// Person schema describes the site owner once, at the root, for every page.
+const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Rahul Mourya",
-  jobTitle: "Full Stack Engineer",
-  email: "ierahul20@gmail.com",
-  sameAs: [
-    "https://www.linkedin.com/in/mouryarahul/",
-    "https://github.com/rahulmourya336",
-    "https://twitter.com/rahucrux",
-    "https://stackoverflow.com/users/8186099/rahul-mourya",
-    "https://medium.com/@i.e.rahul",
-    "https://www.instagram.com/archive.sketch",
-  ],
+  "@id": `${siteUrl}/#person`,
+  name: site.name,
+  url: siteUrl,
+  image: `${siteUrl}/rahul-mourya.webp`,
+  jobTitle: site.role,
+  email: `mailto:${site.email}`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Ahmedabad",
+    addressCountry: "IN",
+  },
+  sameAs: socialProfiles,
   knowsAbout: [
     "Frontend Development",
     "Web Development",
@@ -68,13 +92,25 @@ const jsonLd = {
     "Next.js",
     "Vue.js",
     "Node.js",
+    "Python",
     "GraphQL",
     "AWS",
+    "Terraform",
   ],
   worksFor: {
     "@type": "Organization",
-    name: "Miratech Group",
+    name: site.employer,
   },
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: siteUrl,
+  name: site.name,
+  inLanguage: "en",
+  publisher: { "@id": `${siteUrl}/#person` },
 };
 
 export default function RootLayout({
@@ -83,22 +119,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${display.variable}`}
+    >
       <head>
-        {/* Prevents dark/light flash on load — must run before paint */}
+        {/* Prevents dark/light flash on load. Must run before first paint. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.classList.toggle('dark',t==='dark')}catch(e){}`,
+            __html: `document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.classList.toggle('dark',t==='dark')}catch(e){}`,
           }}
         />
-        {/* Structured data — helps search engines identify the person/profile */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([personJsonLd, websiteJsonLd]),
+          }}
         />
       </head>
-      <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className="font-sans">
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

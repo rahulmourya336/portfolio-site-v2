@@ -1,123 +1,149 @@
 "use client";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { NavLinks } from "./common";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useTheme } from "./theme-provider";
+import { NavLinks } from "./common";
+import { toggleTheme } from "./theme-provider";
 import { IconSun, IconMoon, IconExternalLink, IconGlobe } from "./icons";
 import { supportedLocales, defaultLocale, type Locale } from "@/lib/i18n";
 
+const isCurrent = (pathname: string, href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+
 const Header = () => {
   const pathname = usePathname();
-  const { theme, toggle } = useTheme();
   const [locale, setLocale] = useState<Locale>(defaultLocale);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Border and blur only appear once the page has moved. Keeps the top of
+  // the hero clean on first paint.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const cycleLocale = () => {
     const idx = supportedLocales.indexOf(locale);
-    const next = supportedLocales[(idx + 1) % supportedLocales.length];
-    setLocale(next);
+    setLocale(supportedLocales[(idx + 1) % supportedLocales.length]);
   };
+
+  // Both icons render, CSS picks one. Nothing here depends on React state,
+  // so the server and client markup always match.
+  const ThemeToggle = (
+    <button
+      onClick={toggleTheme}
+      className="rounded-lg p-2 text-fg-subtle transition-colors hover:bg-surface-2 hover:text-fg"
+      aria-label="Toggle dark mode"
+    >
+      <IconSun className="hidden text-lg dark:block" aria-hidden="true" />
+      <IconMoon className="block text-lg dark:hidden" aria-hidden="true" />
+    </button>
+  );
 
   const LocaleToggle = (
     <button
       onClick={cycleLocale}
-      className="inline-flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-      aria-label="Switch language"
-      title={supportedLocales.length === 1 ? "English only (more coming soon)" : "Switch language"}
+      className="inline-flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-medium text-fg-subtle transition-colors hover:bg-surface-2 hover:text-fg"
+      aria-label={`${locale.toUpperCase()}, switch language`}
+      title={
+        supportedLocales.length === 1
+          ? "English only (more coming soon)"
+          : "Switch language"
+      }
     >
-      <IconGlobe className="text-base" />
+      <IconGlobe className="text-base" aria-hidden="true" />
       {locale.toUpperCase()}
     </button>
   );
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 no-tap-highlight">
-      {/* Top bar */}
-      <div className="wrapper flex items-center justify-between px-4 py-3">
+    <header
+      className={`no-tap-highlight sticky top-0 z-50 w-full transition-colors duration-200 ${
+        scrolled
+          ? "border-b border-border bg-bg/80 backdrop-blur-md"
+          : "border-b border-transparent bg-bg"
+      }`}
+    >
+      <div className="wrapper-wide flex items-center justify-between gap-4 px-4 py-3">
         <Link
           href="/"
-          className="font-semibold text-gray-900 dark:text-white tracking-tight hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+          className="font-display text-xl leading-none tracking-tight text-fg transition-colors hover:text-accent"
         >
           Rahul Mourya
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
           {NavLinks.map((link) => {
-            const isActive = pathname === link.href;
-            const isExternal = link.target === "_blank";
+            const active = isCurrent(pathname, link.href);
+            const external = link.target === "_blank";
             return (
               <Link
                 key={link.id}
                 href={link.href}
                 target={link.target}
-                className={`inline-flex items-center gap-1 text-sm transition-colors ${
-                  isActive
-                    ? "text-purple-600 dark:text-purple-400 font-medium"
-                    : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                rel={external ? "noopener noreferrer" : undefined}
+                aria-current={active ? "page" : undefined}
+                className={`relative inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm transition-colors ${
+                  active
+                    ? "text-accent"
+                    : "text-fg-muted hover:bg-surface-2 hover:text-fg"
                 }`}
               >
                 {link.title}
-                {isExternal && <IconExternalLink className="text-xs opacity-60" />}
+                {external && (
+                  <IconExternalLink className="text-xs opacity-60" aria-hidden="true" />
+                )}
+                {active && (
+                  <span className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-accent" />
+                )}
               </Link>
             );
           })}
+          <span className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
           {LocaleToggle}
-          <button
-            onClick={toggle}
-            className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <IconSun className="text-lg" />
-            ) : (
-              <IconMoon className="text-lg" />
-            )}
-          </button>
+          {ThemeToggle}
         </nav>
 
-        {/* Mobile: locale + theme toggles */}
-        <div className="md:hidden flex items-center gap-1">
+        <div className="flex items-center gap-1 md:hidden">
           {LocaleToggle}
-          <button
-            onClick={toggle}
-            className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? (
-              <IconSun className="text-lg" />
-            ) : (
-              <IconMoon className="text-lg" />
-            )}
-          </button>
+          {ThemeToggle}
         </div>
       </div>
 
-      {/* Mobile nav — always visible below top bar */}
-      <nav className="md:hidden border-t border-gray-200 dark:border-gray-800">
-        <div className="flex px-2 py-1.5 gap-1">
+      {/* Mobile: one scrollable row, no hamburger to open and close. */}
+      <nav
+        aria-label="Main"
+        className="border-t border-border md:hidden"
+      >
+        <div className="flex gap-1 overflow-x-auto px-2 py-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {NavLinks.map((link) => {
-            const isActive = pathname === link.href;
-            const isExternal = link.target === "_blank";
+            const active = isCurrent(pathname, link.href);
+            const external = link.target === "_blank";
             return (
               <Link
                 key={link.id}
                 href={link.href}
                 target={link.target}
-                className={`flex-1 inline-flex items-center justify-center gap-1 py-1.5 px-1 rounded-lg text-sm transition-colors text-center ${
-                  isActive
-                    ? "text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/30 font-medium"
-                    : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                rel={external ? "noopener noreferrer" : undefined}
+                aria-current={active ? "page" : undefined}
+                className={`inline-flex flex-shrink-0 items-center gap-1 rounded-lg px-3 py-1.5 text-sm transition-colors ${
+                  active
+                    ? "bg-accent-soft font-medium text-accent"
+                    : "text-fg-muted hover:bg-surface-2 hover:text-fg"
                 }`}
               >
                 {link.title}
-                {isExternal && <IconExternalLink className="text-xs opacity-60" />}
+                {external && (
+                  <IconExternalLink className="text-xs opacity-60" aria-hidden="true" />
+                )}
               </Link>
             );
           })}
         </div>
       </nav>
-    </div>
+    </header>
   );
 };
 

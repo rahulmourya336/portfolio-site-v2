@@ -1,39 +1,20 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
 
-const ThemeContext = createContext<{
-  theme: Theme;
-  toggle: () => void;
-}>({ theme: "dark", toggle: () => {} });
-
-export const useTheme = () => useContext(ThemeContext);
-
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>("dark");
-
-  useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    const initial =
-      stored ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
-    setTheme(initial);
-    document.documentElement.classList.toggle("dark", initial === "dark");
-  }, []);
-
-  const toggle = () => {
-    const next = theme === "dark" ? "light" : "dark";
-    setTheme(next);
+/**
+ * The theme lives in one place: the `dark` class on <html>, set before first
+ * paint by the inline script in the root layout. Keeping it out of React state
+ * means no hydration mismatch and no flash, and the toggle button renders both
+ * icons with CSS deciding which one shows.
+ */
+export const toggleTheme = () => {
+  const root = document.documentElement;
+  const next: Theme = root.classList.contains("dark") ? "light" : "dark";
+  root.classList.toggle("dark", next === "dark");
+  try {
     localStorage.setItem("theme", next);
-    document.documentElement.classList.toggle("dark", next === "dark");
-  };
-
-  return (
-    <ThemeContext.Provider value={{ theme, toggle }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  } catch {
+    // Private mode or storage disabled. The toggle still works for this visit.
+  }
 };
