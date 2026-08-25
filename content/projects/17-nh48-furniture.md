@@ -2,7 +2,7 @@
 name: "NH48 Furniture Website"
 slug: "nh48-furniture"
 githubLink: "https://github.com/rahulmourya336/code-name-nh48"
-demoLink: "https://nh48.in/"
+demoLink: "https://code-name-nh48-demo.vercel.app/"
 thumbnail: "/projects/NH48_thumbnail.webp"
 tags:
   - React.js
